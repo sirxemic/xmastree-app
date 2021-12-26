@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xmas Tree Lights App</title>
+    <script type="module" crossorigin src="/assets/index.e954dc39.js"></script>
+    <link rel="modulepreload" href="/assets/vendor.cc71fe14.js">
+    <link rel="stylesheet" href="/assets/index.474aba13.css">
+  </head>
+  <body>
+    <div id="app">
+      <div id="wrapper">
+        <div id="codeContainer">
+          <textarea>
+// Available variables:
+// N: number - The amount of lights
+// COORDS: Vector3[] - The coordinates of all the lights
+// BBOX: Box3 - box bounding all christmas lights
+// app.time: number - time passed since the start of the loop, in seconds
+// app.colors: Color[]
+
+// Available classes:
+// Box2, Box3, Color, Cylindrical, Euler, Frustum, Interpolant, Line3,
+// MathUtils, Matrix3, Matrix4, Plane, Quaternion, Ray, Sphere, Spherical,
+// Triangle, Vector2, Vector3, Vector4
+// See the docs of Three.JS for more info on these: https://threejs.org/docs/
+
+// Example code below is a (tweaked) port from
+// https://github.com/standupmaths/xmastree2020/blob/main/xmaslights-spin.py
+
+// Variables to share between the init &amp; update functions
+let minAlt = BBOX.min.z
+let maxAlt = BBOX.max.z
+let c = 0
+let buffer = 0.2 * (maxAlt - minAlt)
+let inc = 0.05
+let dinc = 0.01
+let color1, color2
+let swap1
+let swap2
+let direction
+let angle
+
+// Duration of the loop
+app.duration = 10
+
+// Code to run at the beginning of the loop
+app.init = () => {
+  color1 = new Color(0, 1, 1)
+  color2 = new Color(1, 1, 0)
+
+  swap1 = 0
+  swap2 = 0
+  direction = -1
+  angle = 0
+}
+
+// Code to run every frame. Assign a color to app.colors[i], or modify it
+// directly (e.g. app.colors[i].r = 0.5) to update the color of LED `i`
+app.update = () => {
+  for (let i = 0; i < N; i++) {
+    if (Math.tan(angle) * COORDS[i].y <= COORDS[i].z - c) {
+      app.colors[i] = color1
+    } else {
+      app.colors[i] = color2
+    }
+  }
+  angle += inc
+  while (angle > 2 * Math.PI) {
+    angle -= 2 * Math.PI
+    swap1 = 0
+    swap2 = 0
+  }
+  if (angle >= 0.5 * Math.PI) {
+    if (swap1 === 0) {
+      [color1, color2] = [color2, color1]
+      swap1 = 1
+    }
+  }
+  if (angle >= 1.5 * Math.PI) {
+    if (swap2 === 0) {
+      [color1, color2] = [color2, color1]
+      swap2 = 1
+    }
+  }
+  c += direction * dinc
+  if (c <= minAlt + buffer) {
+    direction = 1
+  }
+  if (c >= maxAlt - buffer) {
+    direction = -1
+  }
+}</textarea>
+        </div>
+        <div id="canvasWrapper">
+          <div id="topBar">
+            <div id="progressBar"></div>
+            <label id="fpsLabel">
+              Frames per second:
+              <input type="number" value="25" min="1" max="60">
+            </label>
+          </div>
+          <canvas id="mainCanvas"></canvas>
+          <div id="bottomBar">
+            <div id="export">
+              <a id="download" target="_blank" hidden>Download latest recording</a>
+            </div>
+            <div id="actions">
+              <button id="upload">
+                Upload &amp; play CSV file
+              </button>
+              <button id="startExport">
+                Record &amp; export
+                <span class="key">Ctrl</span> + <span class="key">E</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="recordingOverlay" hidden>
+        Recording... press [escape] to cancel
+      </div>
+    </div>
+    
+  </body>
+</html>
