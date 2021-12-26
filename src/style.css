@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  color: #fff;
+  background: #000;
+}
+
+button, input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  font-weight: 500;
+  background: #333;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+}
+
+#app {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+#canvasWrapper {
+  flex: 1;
+  position: relative;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#topBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+#progressBar {
+  height: 10px;
+  background: #08f;
+}
+
+#fpsLabel {
+  float: right;
+}
+
+#fpsLabel input {
+  width: 6ch;
+  text-align: right;
+}
+
+#bottomBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 0.5em;
+}
+
+#ui[hidden] {
+  display: none;
+}
+
+#codeContainer, textarea {
+  flex: 1;
+  overflow: auto;
+}
+
+.CodeMirror {
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  height: 100% !important;
+  text-shadow: 0 1px 0 #000;
+}
+
+#download {
+  color: #fff;
+}
+
+#export {
+  flex: 1;
+}
+
+#actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+#recordingOverlay {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: rgba(0,0,0,0.2);
+}
+
+#recordingOverlay[hidden] {
+  display: none;
+}
+
+.key {
+  display: inline-block;
+  padding: 0 0.2em;
+  font-weight: normal;
+  border: 1px solid #888;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
