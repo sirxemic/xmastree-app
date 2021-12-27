@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "vite build --base=/xmastree-app/",
     "deploy": "gh-pages -d dist"
   },
   "homepage": "https://sirxemic.github.io/xmastree-app",
