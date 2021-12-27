@@ -34,6 +34,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import rawCoords from './coords.gift'
 import { Frame } from './Exporter'
 import { fragmentShader, vertexShader } from './shaders'
+import flarePng from './flare.png'
 
 const coords = rawCoords.map(coord => {
   return new Vector3(coord.x, coord.y, coord.z)
@@ -341,7 +342,7 @@ export class MainApp {
     geometry.setAttribute('color', new Float32BufferAttribute(colors, 3).setUsage(DynamicDrawUsage))
     const lightsObject = new Points(geometry, new ShaderMaterial({
       uniforms: {
-        pointTexture: { value: new TextureLoader().load('/flare.png') }
+        pointTexture: { value: new TextureLoader().load(flarePng) }
       },
       vertexShader,
       fragmentShader,
