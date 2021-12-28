@@ -1,4 +1,4 @@
-import { Color } from 'three'
+import { Color, MathUtils } from 'three'
 
 export interface Frame {
   colors: Color[]
@@ -20,9 +20,9 @@ export class Exporter {
       let strings = []
       strings.push(i)
       for (let i = 0; i < colors.length; i++) {
-        strings.push(Math.round(colors[i].r * 255))
-        strings.push(Math.round(colors[i].g * 255))
-        strings.push(Math.round(colors[i].b * 255))
+        strings.push(Math.round(MathUtils.clamp(colors[i].r, 0, 1) * 255))
+        strings.push(Math.round(MathUtils.clamp(colors[i].g, 0, 1) * 255))
+        strings.push(Math.round(MathUtils.clamp(colors[i].b, 0, 1) * 255))
       }
       if (i !== this.data.length - 1) {
         this.result += strings.join(',') + '\n'

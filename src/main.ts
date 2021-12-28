@@ -57,10 +57,14 @@ async function upload () {
   if (!file) {
     return
   }
-  const importer = new Importer()
-  importer.setFile(file)
-  const frames = await importer.import()
-  app.playFrames(frames)
+  try {
+    const importer = new Importer()
+    importer.setFile(file)
+    const frames = await importer.import()
+    app.playFrames(frames)
+  } catch (e) {
+    alert(`Parsing CSV file failed:\n${(e as any).message || e}`)
+  }
 }
 
 document.querySelector('#startExport')!.addEventListener('click', startExport)

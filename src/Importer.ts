@@ -1,5 +1,6 @@
 import { Frame } from './Exporter'
 import { Color } from 'three'
+import coords from './coords.gift'
 
 export class Importer {
   private file!: File
@@ -25,24 +26,14 @@ export class Importer {
 
   private parse (str: string) {
     const lines = str.split(/[\r\n]+/g)
-    let firstLine = true
-    let amount = 0
     const result = [] as Frame[]
-    for (let i = 0; i < lines.length; i++) {
+
+    // Starting at 1 since the first line is just the header which we don't need
+    for (let i = 1; i < lines.length; i++) {
       if (lines[i] === '') continue
       const tokens = lines[i].split(/,/g)
-      if (!amount) {
-        amount = tokens.length
-      } else {
-        if (amount !== tokens.length) {
-          throw new Error('Invalid ')
-        }
-      }
-      if (firstLine) {
-        firstLine = false
-        if (tokens[0] === 'FRAME_ID') {
-          continue
-        }
+      if (tokens.length !== coords.length * 3 + 1) {
+        throw new Error(`Line ${i + 1}: Expected ${coords.length * 3 + 1} tokens but got ${tokens.length}`)
       }
 
       let frame: Frame = {
@@ -54,7 +45,7 @@ export class Importer {
         const g = Number(tokens[j + 1])
         const b = Number(tokens[j + 2])
         if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
-          throw new Error(`Invalid token(s) at line ${i} positions ${j}, ${j + 1}, ${j + 2}`)
+          throw new Error(`Line ${i + 1}: Invalid token(s) at positions ${j}, ${j + 1}, ${j + 2}`)
         }
         frame.colors.push(
           new Color(r / 255, g / 255, b / 255)
