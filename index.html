@@ -39,7 +39,7 @@ let swap2
 let direction
 let angle
 
-// Duration of the loop
+// Duration of the loop (in seconds)
 app.duration = 10
 
 // Code to run at the beginning of the loop
@@ -95,7 +95,7 @@ app.update = () => {
             <div id="progressBar"></div>
             <label id="fpsLabel">
               Frames per second:
-              <input type="number" value="25" min="1" max="60">
+              <input type="number" value="60" min="1" max="60">
             </label>
           </div>
           <canvas id="mainCanvas"></canvas>

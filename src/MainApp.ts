@@ -29,6 +29,7 @@ import {
   ShaderMaterial,
   TextureLoader,
   WebGLRenderer,
+  AxesHelper,
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import rawCoords from './coords.gift'
@@ -78,7 +79,7 @@ export class MainApp {
   private fpsControl: HTMLInputElement
 
   public recording = false
-  public fps = 25
+  public fps = 60
 
   private prerecorded = false
 
@@ -111,6 +112,8 @@ export class MainApp {
     this.controls.target.copy(averageCoord)
 
     this.createLights()
+
+    this.scene.add(new AxesHelper(1))
 
     this.state = {
       time: 0,
