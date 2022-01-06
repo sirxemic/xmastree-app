@@ -14,6 +14,7 @@ export class CodeEditor {
       theme: 'solarized dark',
       lineNumbers: true,
       lineWrapping: true,
+      tabSize: 2,
       viewportMargin: Infinity
     })
   }
